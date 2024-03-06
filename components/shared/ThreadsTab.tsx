@@ -1,24 +1,24 @@
-import { fetchUserPosts } from '@/lib/actions/user.actions';
-import { redirect } from 'next/navigation';
-import { ThreadCard } from '../cards/ThreadCard';
+import { fetchUserPosts } from "@/lib/actions/user.actions"
+import { redirect } from "next/navigation"
+import { ThreadCard } from "../cards/ThreadCard"
 
 type Props = {
-  currentUserId: string;
-  accountId: string;
-  accountType: string;
-};
+  currentUserId: string
+  accountId: string
+  accountType: string
+}
 
 export const ThreadsTab = async ({
   currentUserId,
   accountId,
   accountType,
 }: Props) => {
-  const result = await fetchUserPosts(accountId);
+  const result = await fetchUserPosts(accountId)
 
-  if (!result) return redirect('/');
+  if (!result) return redirect("/")
 
   return (
-    <section className='mt-9 flex flex-col gap-10'>
+    <section className="mt-9 flex flex-col gap-10">
       {
         // TODO: thread type
         result.threads.map((thread: any) => (
@@ -28,8 +28,9 @@ export const ThreadsTab = async ({
             id={thread._id}
             parentId={thread.parentId}
             content={thread.text}
+            likes={thread.likes}
             author={
-              accountType === 'User'
+              accountType === "User"
                 ? { name: result.name, image: result.image, id: result.id }
                 : {
                     name: thread.author.name,
@@ -44,5 +45,5 @@ export const ThreadsTab = async ({
         ))
       }
     </section>
-  );
-};
+  )
+}

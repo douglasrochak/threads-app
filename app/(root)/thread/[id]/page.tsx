@@ -1,28 +1,28 @@
-import { ThreadCard } from '@/components/cards/ThreadCard';
-import { Comment } from '@/components/forms/Comment';
-import { fetchThreadById } from '@/lib/actions/thread.actions';
-import { fetchUser } from '@/lib/actions/user.actions';
-import { currentUser } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import { ThreadCard } from "@/components/cards/ThreadCard"
+import { Comment } from "@/components/forms/Comment"
+import { fetchThreadById } from "@/lib/actions/thread.actions"
+import { fetchUser } from "@/lib/actions/user.actions"
+import { currentUser } from "@clerk/nextjs"
+import { redirect } from "next/navigation"
 
 type Props = {
   params: {
-    id: string;
-  };
-};
+    id: string
+  }
+}
 
 const ThreadPage = async ({ params }: Props) => {
-  if (!params.id) return null;
+  if (!params.id) return null
 
-  const user = await currentUser();
-  if (!user) return null;
+  const user = await currentUser()
+  if (!user) return null
 
-  const userInfo = await fetchUser(user.id);
-  if (!userInfo?.onboarded) redirect('onboarding');
+  const userInfo = await fetchUser(user.id)
+  if (!userInfo?.onboarded) redirect("onboarding")
 
-  const thread = await fetchThreadById(params.id);
+  const thread = await fetchThreadById(params.id)
   return (
-    <section className='realative'>
+    <section className="relative">
       <div>
         <ThreadCard
           key={thread._id}
@@ -34,10 +34,11 @@ const ThreadPage = async ({ params }: Props) => {
           community={thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
+          likes={thread.likes}
         />
       </div>
 
-      <div className='mt-7'>
+      <div className="mt-7">
         <Comment
           threadId={thread.id}
           currentUserImg={userInfo.image}
@@ -45,7 +46,7 @@ const ThreadPage = async ({ params }: Props) => {
         />
       </div>
 
-      <div className='mt-10'>
+      <div className="mt-10">
         {
           // TODO: Refactor comment type
           thread.children.map((comment: any) => (
@@ -59,13 +60,14 @@ const ThreadPage = async ({ params }: Props) => {
               community={comment.community}
               createdAt={comment.createdAt}
               comments={comment.children}
+              likes={comment.likes}
               isComment
             />
           ))
         }
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ThreadPage;
+export default ThreadPage
