@@ -39,5 +39,5 @@ $ bun install
 2. Execute o projeto:
 
 ```bash
-bun dev
+bun run dev
 ```
