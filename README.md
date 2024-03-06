@@ -20,11 +20,11 @@ Lista de tecnologias utilizadas no projeto:
 
 ## TO DO
 
-[X] Like
-[ ] Editar perfil
-[ ] Excluir uma thread
-[ ] Comunidades
-[ ] Internationalization
+- [x] Like
+- [ ] Editar perfil
+- [ ] Excluir uma thread
+- [ ] Comunidades
+- [ ] Internationalization
 
 ## Executando o projeto
 
